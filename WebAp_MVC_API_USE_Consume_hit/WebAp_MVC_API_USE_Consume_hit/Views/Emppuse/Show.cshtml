@@ -1,0 +1,25 @@
+﻿@model IEnumerable<WebAp_MVC_API_USE_Consume_hit.Models.tblEmployee>
+@{
+    ViewBag.Title = "Show";
+}
+
+<h2>Show</h2>
+<table style="background-color:yellow;color:black">
+    <tr style="background-color:black;color:white">
+        <th>Employee ID</th>
+        <th>Employee Name</th>
+        <th>Employee City</th>
+        <th>Employee Age</th>
+    </tr>
+
+    @foreach (var a in Model)
+    {
+        <tr>
+            <td>@a.empid</td>
+            <td>@a.name</td>
+            <td>@a.city</td>
+            <td>@a.age</td>
+        </tr>
+    }
+</table>
+

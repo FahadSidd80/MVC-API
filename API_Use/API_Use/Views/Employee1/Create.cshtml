@@ -1,0 +1,69 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+<table>
+    <tr>
+        <td>Name:</td>
+        <td><input type="text" id="txtname" /></td>
+    </tr>
+    <tr>
+        <td>City:</td>
+        <td><input type="text" id="txtcity" /></td>
+    </tr>
+    <tr>
+        <td>Age:</td>
+        <td><input type="text" id="txtage" /></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td><input type="button" id="btnsave" value="Save" onclick="Insert()" /></td>
+    </tr>
+</table>
+<table id="tbl" style="background-color:yellow;color:black">
+    <tr style="background-color:green;color:white">
+        <th>Emp Name</th>  <th>Emp City</th>  <th>Emp Age</th>  
+    </tr>
+</table>
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () { // page load
+        ShowEmployee();  
+    });
+
+    function Insert() {
+        $.ajax({
+            url: 'https://localhost:44324/api/Employee/EmployeeInsert',
+            type: 'post',
+            data: { name: $("#txtname").val(), city: $("#txtcity").val(), age: $("#txtage").val()},
+            success: function () {
+                alert('Data saved successfully !!');
+            },
+            error: function () {
+                alert('Data not saved !!');
+            }
+        });
+    }
+
+    function ShowEmployee() {
+        $.ajax({
+            url: 'https://localhost:44324/api/Employee/EmployeeGet',
+            type: 'post',
+            data: {},
+            success: function (data) {
+                data = JSON.parse(data.d);
+                $("#tbl").find("tr:gt(0)").remove();
+                for (var i = 0; i < data.length; i++) {
+                    $("#tbl").append('<tr><td>' + data[i].empid + '</td><td>' + data[i].name + '</td><td>' + data[i].city + '</td> <td>' + Data[i].age + '</td>  </tr>');
+                }
+            },
+            error: function () {
+                alert('Data not found !!');
+            }   
+        });
+    }
+</script>

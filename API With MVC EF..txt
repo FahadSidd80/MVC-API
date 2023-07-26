@@ -1,0 +1,44 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Text;
+using System.Web;
+using System.Web.Mvc;
+using mvcapiuse.Models;
+API With MVC EF.
+
+using Newtonsoft.Json;
+
+namespace mvcapiuse.Controllers
+{
+    public class EmppController : Controller
+    {
+        // GET: Empp
+        public ActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Create(tblemployee _emp)
+        {
+            HttpClient _client = new HttpClient();
+            _client.BaseAddress = new Uri("localhost://44392/api/Emp");
+            string data = JsonConvert.SerializeObject(_emp);
+            StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
+            _client.PostAsync(_client.BaseAddress, content);
+            return View();
+        }
+        public ActionResult Show()
+        {
+            HttpClient _client = new HttpClient();
+            _client.BaseAddress = new Uri("localhost://44392/api/Emp");
+            List<tblemployee> lstemp = new List<tblemployee>();
+            HttpResponseMessage response =  _client.GetAsync(_client.BaseAddress).Result;
+            var abc = response.Content.ReadAsStringAsync().Result;
+            var jabc = JsonConvert.DeserializeObject(abc).ToString();
+            lstemp = JsonConvert.DeserializeObject<List<tblemployee>>(jabc);
+            return View(lstemp);
+        }
+    }
+}

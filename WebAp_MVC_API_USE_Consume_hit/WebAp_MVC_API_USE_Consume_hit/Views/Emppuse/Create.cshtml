@@ -1,0 +1,28 @@
+﻿@model  WebAp_MVC_API_USE_Consume_hit.Models.tblEmployee
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm("Create", "Emppuse", FormMethod.Post))
+{
+    <table>
+        <tr>
+            <td>Name :</td>
+            <td>@Html.TextBoxFor(x => x.name)</td>
+        </tr>
+        <tr>
+            <td>City :</td>
+            <td>@Html.TextBoxFor(x => x.city)</td>
+        </tr>
+        <tr>
+            <td>Age :</td>
+            <td>@Html.TextBoxFor(x => x.age)</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Create" /> </td>
+        </tr>
+    </table>
+}
